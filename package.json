@@ -1,0 +1,84 @@
+{
+    "name": "node_ts",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc --build",
+        "test": "npx mocha ./__test__ --exit ",
+        "start": "sleep 10s && node ./build/server/index.js",
+        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+        "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+        "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Maksim1212/node_ts.git"
+    },
+    "author": "maksim1212",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Maksim1212/node_ts/issues"
+    },
+    "homepage": "https://github.com/Maksim1212/node_ts#readme",
+    "dependencies": {
+        "@types/jsonwebtoken": "^8.5.0",
+        "@types/supertest": "^2.0.10",
+        "@types/swagger-jsdoc": "^3.0.2",
+        "@types/swagger-ui-express": "^4.1.2",
+        "bcrypt": "^5.0.0",
+        "body-parser": "^1.19.0",
+        "chai": "^4.2.0",
+        "chai-fs": "^2.0.0",
+        "compression": "^1.7.4",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-async-handler": "^1.1.4",
+        "express-session": "^1.17.1",
+        "express-validator": "^6.6.1",
+        "faker": "^5.1.0",
+        "helmet": "^4.1.0",
+        "inversify": "^5.0.1",
+        "inversify-express-utils": "^6.3.2",
+        "jsonwebtoken": "^8.5.1",
+        "mocha": "^8.1.3",
+        "mysql": "^2.14.1",
+        "reflect-metadata": "^0.1.10",
+        "supertest": "^5.0.0",
+        "swagger-jsdoc": "^4.2.3",
+        "swagger-ui-express": "^4.1.4",
+        "typeorm": "0.2.25",
+        "yamljs": "^0.3.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^3.0.0",
+        "@types/compression": "^1.7.0",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/cors": "^2.8.7",
+        "@types/express": "^4.17.8",
+        "@types/express-session": "^1.17.0",
+        "@types/faker": "^5.1.2",
+        "@types/mocha": "^8.0.3",
+        "@types/node": "^8.0.29",
+        "@types/yamljs": "^0.2.31",
+        "@typescript-eslint/eslint-plugin": "^4.3.0",
+        "@typescript-eslint/parser": "^4.3.0",
+        "commitizen": "^4.2.1",
+        "eslint": "^7.10.0",
+        "eslint-config-airbnb-typescript": "^9.0.0",
+        "eslint-config-prettier": "^6.12.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-prettier": "^3.1.4",
+        "nodemon": "^2.0.4",
+        "prettier": "^2.1.1",
+        "ts-node": "3.3.0",
+        "typescript": "^3.3.3333"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}
