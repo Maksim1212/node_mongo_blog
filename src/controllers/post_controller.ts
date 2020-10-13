@@ -1,89 +1,89 @@
-import { Request, Response } from 'express';
+// import { Request, Response } from 'express';
 
-import LikesData from '../interfaces/likes_data_interface';
-import * as PostService from '../services/post_service';
-import isAdmin from '../middleware/is_admin';
+// import LikesData from '../interfaces/likes_data_interface';
+// import * as PostService from '../services/post_service';
+// import isAdmin from '../middleware/is_admin';
 
-export async function findAll(req: Request, res: Response): Promise<Response> {
-    const posts = await PostService.findAll();
-    return res.status(200).json(posts);
-}
+// export async function findAll(req: Request, res: Response): Promise<Response> {
+//     const posts = await PostService.findAll();
+//     return res.status(200).json(posts);
+// }
 
-export async function create(req: Request, res: Response): Promise<Response> {
-    const results = await PostService.cretePost(req.body);
-    return res.json(results);
-}
+// export async function create(req: Request, res: Response): Promise<Response> {
+//     const results = await PostService.cretePost(req.body);
+//     return res.json(results);
+// }
 
-export async function findById(req: Request, res: Response): Promise<Response> {
-    const post = await PostService.findByPostId(Number(req.query.id));
-    return res.status(200).json({ post });
-}
+// export async function findById(req: Request, res: Response): Promise<Response> {
+//     const post = await PostService.findByPostId(Number(req.query.id));
+//     return res.status(200).json({ post });
+// }
 
-export async function findByUserId(req: Request, res: Response): Promise<Response> {
-    const posts = await PostService.findByUserId(Number(req.query.id));
-    return res.status(200).json({ posts });
-}
+// export async function findByUserId(req: Request, res: Response): Promise<Response> {
+//     const posts = await PostService.findByUserId(Number(req.query.id));
+//     return res.status(200).json({ posts });
+// }
 
-export async function updateById(req: Request, res: Response): Promise<Response> {
-    const id = Number(req.body.author_id);
-    const post = await PostService.findOrfail(Number(req.body.id));
+// export async function updateById(req: Request, res: Response): Promise<Response> {
+//     const id = Number(req.body.author_id);
+//     const post = await PostService.findOrfail(Number(req.body.id));
 
-    if ((await isAdmin(id)) || post.author_id === req.body.author_id) {
-        await PostService.updatePostById(req.body.id, req.body);
-        return res.status(200).json({
-            message: 'post updated successfully',
-        });
-    }
-    return res.status(403).json({
-        message: 'you are do not have permissions to perform this operation',
-    });
-}
+//     if ((await isAdmin(id)) || post.author_id === req.body.author_id) {
+//         await PostService.updatePostById(req.body.id, req.body);
+//         return res.status(200).json({
+//             message: 'post updated successfully',
+//         });
+//     }
+//     return res.status(403).json({
+//         message: 'you are do not have permissions to perform this operation',
+//     });
+// }
 
-export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const id = Number(req.body.user_id);
-    const post = await PostService.findByPostId(Number(req.params.id));
+// export async function deleteById(req: Request, res: Response): Promise<Response> {
+//     const id = Number(req.body.user_id);
+//     const post = await PostService.findByPostId(Number(req.params.id));
 
-    if ((await isAdmin(id)) || post.author_id === req.body.user_id) {
-        await PostService.deletePost(req.body.id);
-        return res.status(200).json({
-            message: 'post deleted successfully',
-        });
-    }
+//     if ((await isAdmin(id)) || post.author_id === req.body.user_id) {
+//         await PostService.deletePost(req.body.id);
+//         return res.status(200).json({
+//             message: 'post deleted successfully',
+//         });
+//     }
 
-    return res.status(403).json({
-        message: 'you are do not have permissions to perform this operation',
-    });
-}
+//     return res.status(403).json({
+//         message: 'you are do not have permissions to perform this operation',
+//     });
+// }
 
-export async function addLike(req: Request, res: Response): Promise<Response> {
-    const postData = await PostService.findOrfail(req.body.post_id);
-    let like: string;
-    const likes = [];
-    if (postData.likes) {
-        like = postData.likes.find((id) => id === `${req.body.user_id}`);
-        likes.push(...postData.likes);
-    }
-    if (!like) {
-        likes.push(req.body.user_id);
-        const likesData: LikesData = { likes };
-        await PostService.updatePostById(req.body.post_id, likesData);
-        const data = await PostService.findByPostId(req.body.post_id);
-        return res.status(200).json({ data });
-    }
+// export async function addLike(req: Request, res: Response): Promise<Response> {
+//     const postData = await PostService.findOrfail(req.body.post_id);
+//     let like: string;
+//     const likes = [];
+//     if (postData.likes) {
+//         like = postData.likes.find((id) => id === `${req.body.user_id}`);
+//         likes.push(...postData.likes);
+//     }
+//     if (!like) {
+//         likes.push(req.body.user_id);
+//         const likesData: LikesData = { likes };
+//         await PostService.updatePostById(req.body.post_id, likesData);
+//         const data = await PostService.findByPostId(req.body.post_id);
+//         return res.status(200).json({ data });
+//     }
 
-    return res.status(422).json({
-        message: 'you have already liked this post',
-    });
-}
+//     return res.status(422).json({
+//         message: 'you have already liked this post',
+//     });
+// }
 
-export async function sort(req: Request, res: Response): Promise<Response> {
-    const sortingParametr = req.body.parametr;
-    const posts = await PostService.sortByDate(sortingParametr);
-    return res.status(200).json(posts);
-}
+// export async function sort(req: Request, res: Response): Promise<Response> {
+//     const sortingParametr = req.body.parametr;
+//     const posts = await PostService.sortByDate(sortingParametr);
+//     return res.status(200).json(posts);
+// }
 
-export async function sortByLikes(req: Request, res: Response): Promise<Response> {
-    const { sortingParametr } = req.body;
-    const posts = await PostService.sortByLikes(sortingParametr);
-    return res.status(200).json(posts);
-}
+// export async function sortByLikes(req: Request, res: Response): Promise<Response> {
+//     const { sortingParametr } = req.body;
+//     const posts = await PostService.sortByLikes(sortingParametr);
+//     return res.status(200).json(posts);
+// }

@@ -1,29 +1,29 @@
-import { getRepository, UpdateResult } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import AuthUserModel from '../models/user';
+import { OneUserInterface, CreateUserDataInterface } from '../interfaces/user_service_interface';
 
-import { User } from '../entities/user';
-import { UpdateData } from '../interfaces/user_model_interface';
-import { OneUser, CreateUserData } from '../interfaces/user_service_interface';
-
-function findByEmail(email: string): Promise<OneUser> {
-    return getRepository(User).findOne({ where: { email } });
+function findByEmail(email: string): Promise<any> {
+    return AuthUserModel.findOne({ email }).exec();
 }
 
-function createUser(data: CreateUserData): Promise<OneUser> {
-    const newUser = getRepository(User).create(data);
-    return getRepository(User).save(newUser);
+function createUser(data: CreateUserDataInterface): Promise<import('mongoose').Document> {
+    return AuthUserModel.create(data);
 }
 
-function updateUser(id: number, password: QueryDeepPartialEntity<User>): Promise<UpdateResult> {
-    return getRepository(User).update(id, password);
+function updateUser(_id: string, password: string): Promise<OneUserInterface> {
+    return AuthUserModel.updateOne({ _id }, { password }).exec();
 }
 
-function findByUserId(id: number): Promise<OneUser> {
-    return getRepository(User).findOne(id);
+function updateRefreshToken(_id: string, refreshToken: string): Promise<string> {
+    return AuthUserModel.updateOne({ _id }, { refreshToken }).exec();
 }
 
-function dropUserToken(id: number, data: UpdateData): Promise<UpdateResult> {
-    return getRepository(User).update(id, data);
+function findByUserId(_id: string): Promise<any> {
+    return AuthUserModel.findById({ _id }).exec();
 }
 
-export { findByEmail, createUser, updateUser, findByUserId, dropUserToken };
+function dropUserToken(_id: string): Promise<string> {
+    const nullifiedToken = null;
+    return AuthUserModel.updateOne({ _id }, { refreshToken: nullifiedToken }).exec();
+}
+
+export { findByEmail, createUser, updateUser, findByUserId, dropUserToken, updateRefreshToken };

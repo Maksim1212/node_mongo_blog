@@ -1,4 +1,4 @@
-interface OneUser {
+interface OneUserInterface {
     id: number;
     name: string;
     email: string;
@@ -7,10 +7,10 @@ interface OneUser {
     is_admin: boolean;
 }
 
-interface CreateUserData {
+interface CreateUserDataInterface {
     name: string;
     email: string;
     password: string;
 }
 
-export { OneUser, CreateUserData };
+export { OneUserInterface, CreateUserDataInterface };

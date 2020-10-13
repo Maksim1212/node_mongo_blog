@@ -1,6 +1,6 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import Post from '../entities/post';
+import Post from '../models/post';
 import Likes from '../interfaces/likes_data_interface';
 import { GetAllPosts, OnePost, PostData } from '../interfaces/post_service_interface';
 

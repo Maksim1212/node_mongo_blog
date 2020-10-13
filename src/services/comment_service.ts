@@ -1,6 +1,6 @@
 import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
 
-import Comment from '../entities/comment';
+import Comment from '../models/comment';
 import { AllComments, OneComment, CommentData } from '../interfaces/comment_service_interfaces';
 import Likes from '../interfaces/likes_data_interface';
 

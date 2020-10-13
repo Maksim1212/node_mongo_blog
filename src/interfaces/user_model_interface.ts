@@ -1,17 +1,19 @@
-export interface Password {
+interface PasswordInterface {
     password: string;
 }
 
-export interface UpdateData {
+interface UpdateDataInterface {
     refreshToken: string;
 }
 
-export interface Tokens {
+interface TokensInterface {
     accessToken: string;
     refreshToken: string;
 }
 
-export interface UserMain {
+interface UserMainInterface {
     id: number;
     name: string;
 }
+
+export { PasswordInterface, UpdateDataInterface, TokensInterface, UserMainInterface };

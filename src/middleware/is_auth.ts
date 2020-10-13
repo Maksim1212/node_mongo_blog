@@ -15,7 +15,7 @@ export default async function isAuthJWT(req: Request, res: Response, next: NextF
         if (error.message === 'jwt expired') {
             const decoded = [];
             decoded.push(...Object.values(jwt.decode(req.body.accessToken)));
-            const userId: number = decoded[0];
+            const userId: string = decoded[0];
             tokens = await getJWTTokens(userId);
             const user = await UserService.findByUserId(userId);
             const { accessToken } = tokens;

@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 
 import getJWTTokens from '../helpers/get_jwt_tokens';
-import { getUserMainFields } from '../entities/user';
-import { UpdateData, Password } from '../interfaces/user_model_interface';
+import getUserMainFields from '../helpers/get_user_main_fields';
+import { PasswordInterface } from '../interfaces/user_model_interface';
 import * as UserService from '../services/user_service';
 
 const saltRounds = 10;
 const userNotFound = 'This Email not found';
-const wrongPassword = 'Wrong Password';
+const wrongData = 'Wrong user data';
 
 export async function createUser(req: Request, res: Response): Promise<Response> {
     req.body.password = await bcrypt.hash(req.body.password, saltRounds);
@@ -30,11 +30,12 @@ export async function login(req: Request, res: Response): Promise<Response> {
 
     if (!passwordsMatch) {
         return res.status(401).json({
-            message: wrongPassword,
+            message: wrongData,
         });
     }
 
-    const token = await getJWTTokens(user.id);
+    // eslint-disable-next-line no-underscore-dangle
+    const token = await getJWTTokens(user._id);
     const { accessToken } = token;
     let data = {};
     data = {
@@ -58,27 +59,27 @@ export async function updateUserPass(req: Request, res: Response): Promise<Respo
     const passwordsMatch = await bcrypt.compare(reqPassword, userPassword);
 
     if (!passwordsMatch) {
-        return res.status(401).json({ message: wrongPassword });
+        return res.status(401).json({ message: wrongData });
     }
 
-    const newPassword: Password = {
+    const newPassword: PasswordInterface = {
         password: await bcrypt.hash(req.body.newPassword, saltRounds),
     };
 
-    await UserService.updateUser(updatingUser.id, newPassword);
+    // eslint-disable-next-line no-underscore-dangle
+    await UserService.updateUser(updatingUser._id, newPassword.password);
 
     return res.status(200).json({ message: 'your password has been successfully updated' });
 }
 
 export async function getUserFromID(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.findByUserId(Number(req.query.id));
+    const user = await UserService.findByUserId(String(req.query.id));
     const { name } = user;
     return res.status(200).json({ name });
 }
 
 export async function logout(req: Request, res: Response): Promise<Response> {
-    const userData: UpdateData = { refreshToken: 'null' };
     const userId = req.body.user_id;
-    await UserService.dropUserToken(userId, userData);
+    await UserService.dropUserToken(userId);
     return res.status(200).json({ message: 'you have successfully logged out' });
 }

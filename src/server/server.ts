@@ -5,7 +5,6 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as session from 'express-session';
-import { createConnection } from 'typeorm';
 import * as YAML from 'yamljs';
 import * as swaggerUi from 'swagger-ui-express';
 
@@ -25,8 +24,6 @@ const app: express.Application = express();
 /**
  * @description express.Application Middleware
  */
-
-createConnection();
 
 const swaggerDocument = YAML.load('./swagger.yaml');
 
@@ -83,7 +80,7 @@ app.use('/v1/auth', AuthUserRouter);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.use('/posts', PostRouter);
+// app.use('/posts', PostRouter);
 
 /**
  * Forwards any requests to the /comments URI to CommentRouter.
@@ -93,7 +90,7 @@ app.use('/posts', PostRouter);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-app.use('/comments', CommentRouter);
+// app.use('/comments', CommentRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
