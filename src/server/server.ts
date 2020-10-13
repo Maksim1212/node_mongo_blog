@@ -90,7 +90,7 @@ app.use('/posts', PostRouter);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-// app.use('/comments', CommentRouter);
+app.use('/comments', CommentRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

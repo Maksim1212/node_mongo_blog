@@ -1,31 +1,29 @@
-import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
-
-import Comment from '../models/comment';
+import CommentModel from '../models/comment';
 import { AllComments, OneComment, CommentData } from '../interfaces/comment_service_interfaces';
 import Likes from '../interfaces/likes_data_interface';
 
-function findAll(): Promise<AllComments> {
-    return getRepository(Comment).find();
+function findAll(): Promise<any> {
+    return CommentModel.find({}).exec();
 }
 
-function create(data: CommentData): Promise<OneComment> {
-    const comment = getRepository(Comment).create(data);
-    return getRepository(Comment).save(comment);
+function create(data: CommentData): Promise<any> {
+    return CommentModel.create(data);
 }
 
-function findByPostId(id: number): Promise<OneComment> {
-    return getRepository(Comment).findOneOrFail({ post_id: id });
+function findByPostId(id: string): Promise<any> {
+    return CommentModel.find({ post_id: id }).exec();
 }
 
-function updateComment(id: number, likesData: Likes): Promise<UpdateResult> {
-    return getRepository(Comment).update(id, likesData);
+function updateComment(_id: string, likesData: Likes): Promise<any> {
+    return CommentModel.updateOne({ _id }, likesData).exec();
 }
 
-function findOne(id: number): Promise<OneComment> {
-    return getRepository(Comment).findOneOrFail(id);
+function findOne(id: string): Promise<any> {
+    return CommentModel.findById(id).exec();
 }
 
-function deleteById(id: number): Promise<DeleteResult> {
-    return getRepository(Comment).delete(id);
+function deleteById(_id: string): Promise<any> {
+    return CommentModel.deleteOne({ _id }).exec();
 }
+
 export { findAll, create, findByPostId, updateComment, findOne, deleteById };
