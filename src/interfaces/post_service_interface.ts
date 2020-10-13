@@ -11,12 +11,12 @@ interface GetAllPosts {
 }
 
 interface OnePost {
-    author_id: number;
-    author_name: string;
+    likes: string[];
+    _id: string;
     title: string;
     body: string;
-    likes: string[];
-    id: number;
+    author_id: string;
+    author_name: string;
     creation_time: Date;
 }
 

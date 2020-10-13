@@ -80,7 +80,7 @@ app.use('/v1/auth', AuthUserRouter);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-// app.use('/posts', PostRouter);
+app.use('/posts', PostRouter);
 
 /**
  * Forwards any requests to the /comments URI to CommentRouter.

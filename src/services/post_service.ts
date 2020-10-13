@@ -1,54 +1,45 @@
-import { DeleteResult, getRepository, UpdateResult } from 'typeorm';
+import { Aggregate } from 'mongoose';
 
-import Post from '../models/post';
+import PostModel from '../models/post';
 import Likes from '../interfaces/likes_data_interface';
 import { GetAllPosts, OnePost, PostData } from '../interfaces/post_service_interface';
 
-function findAll(): Promise<GetAllPosts> {
-    return getRepository(Post).find();
+function findAll(): Promise<any> {
+    return PostModel.find({}).exec();
 }
 
-function cretePost(postData: PostData[]): Promise<OnePost[]> {
-    const post = getRepository(Post).create(postData);
-    return getRepository(Post).save(post);
+function cretePost(postData: PostData[]): Promise<import('mongoose').Document> {
+    return PostModel.create(postData);
 }
 
-function findByPostId(id: number): Promise<OnePost> {
-    return getRepository(Post).findOne(id);
+function findByPostId(_id: string): Promise<any> {
+    return PostModel.findById(_id).exec();
 }
 
-function findByUserId(id: number): Promise<OnePost[]> {
-    return getRepository(Post).find({ author_id: id });
+function findByUserId(_id: string): Promise<any> {
+    return PostModel.find({ author_id: _id }).exec();
 }
 
-function updatePostById(id: number, body: Likes): Promise<UpdateResult> {
-    return getRepository(Post).update(id, body);
+function updatePostById(_id: string, body: Likes): Promise<any> {
+    return PostModel.updateOne({ _id }, body).exec();
 }
 
-function deletePost(id: number): Promise<DeleteResult> {
-    return getRepository(Post).delete(id);
+function deletePost(_id: string): Promise<any> {
+    return PostModel.deleteOne({ _id }).exec();
 }
 
-function findOrfail(id: number): Promise<OnePost> {
-    return getRepository(Post).findOneOrFail(id);
+function sortByDate(sortingParametr: string): Aggregate<any[]> {
+    return PostModel.aggregate([
+        {
+            $sort: {
+                creation_time: sortingParametr,
+            },
+        },
+    ]);
 }
 
-function sortByDate(sortingParametr: 'ASC' | 'DESC'): Promise<GetAllPosts> {
-    return getRepository(Post).createQueryBuilder('post').orderBy('creation_time', sortingParametr).getMany();
+function sortByLikes() {
+    return PostModel.aggregate([{ $unwind: '$likes' }, { $sortByCount: '$likes' }]);
 }
 
-function sortByLikes(sortingParametr: 'ASC' | 'DESC'): Promise<GetAllPosts> {
-    return getRepository(Post).createQueryBuilder('post').orderBy('likes', sortingParametr).getMany();
-}
-
-export {
-    findAll,
-    cretePost,
-    findByPostId,
-    findByUserId,
-    updatePostById,
-    deletePost,
-    findOrfail,
-    sortByDate,
-    sortByLikes,
-};
+export { findAll, cretePost, findByPostId, findByUserId, updatePostById, deletePost, sortByDate, sortByLikes };

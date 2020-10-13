@@ -22,7 +22,7 @@ postRouter.get('/user/:id', getOnePostValidation, asyncHandler(PostComponent.fin
 
 postRouter.post('/sort', sortPostValidation, asyncHandler(PostComponent.sort));
 
-postRouter.post('/likes', sortByLikesValidation, asyncHandler(PostComponent.sortByLikes));
+postRouter.post('/likes', asyncHandler(PostComponent.sortByLikes));
 
 postRouter.post('/create', createPostValidation, Auth, asyncHandler(PostComponent.create));
 
