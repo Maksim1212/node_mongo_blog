@@ -32,6 +32,7 @@ export async function create(req: Request, res: Response): Promise<Response> {
     };
 
     const response = await PostService.cretePost(postData);
+
     return res.json(response);
 }
 
@@ -111,7 +112,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sort(req: Request, res: Response): Promise<Response> {
-    const sortingParametr = req.body.parametr;
+    const sortingParametr = +req.body.parametr;
     const posts = await PostService.sortByDate(sortingParametr);
     return res.status(200).json(posts);
 }
