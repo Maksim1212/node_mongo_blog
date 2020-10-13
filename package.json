@@ -8,8 +8,7 @@
         "test": "npx mocha ./__test__ --exit ",
         "start": "sleep 10s && node ./build/server/index.js",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-        "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-        "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
+        "migrate-mongo": ""
     },
     "repository": {
         "type": "git",
