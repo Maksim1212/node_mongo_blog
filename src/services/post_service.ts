@@ -8,7 +8,7 @@ function findAll(): Promise<any> {
     return PostModel.find({}).exec();
 }
 
-function cretePost(postData: PostData[]): Promise<import('mongoose').Document> {
+function cretePost(postData: any): Promise<import('mongoose').Document> {
     return PostModel.create(postData);
 }
 

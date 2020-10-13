@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import getJWTTokens from '../helpers/get_jwt_tokens';
-import { Tokens } from '../interfaces/user_model_interface';
+import { TokensInterface } from '../interfaces/user_model_interface';
 import { serviceConfig } from '../config/config';
 import * as UserService from '../services/user_service';
 
 export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {
-    let tokens: Tokens;
+    let tokens: TokensInterface;
     let verify;
     try {
         const token = req.body.accessToken;

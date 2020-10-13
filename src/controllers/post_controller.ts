@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 
 import LikesData from '../interfaces/likes_data_interface';
 import * as PostService from '../services/post_service';
+import * as UserService from '../services/user_service';
 import isAdmin from '../middleware/is_admin';
+import getUserMainFields from '../helpers/get_user_main_fields';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const posts = await PostService.findAll();
@@ -10,8 +12,27 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    const results = await PostService.cretePost(req.body);
-    return res.json(results);
+    const user = await UserService.findByUserId(String(req.body.author_id));
+    if (!user) {
+        return res.json({
+            message: 'this user not found',
+        });
+    }
+
+    const userMain = {
+        ...getUserMainFields(user),
+    };
+
+    const postData = {
+        title: req.body.title,
+        body: req.body.body,
+        author_id: req.body.author_id,
+        author_name: userMain.name,
+        accessToken: req.body.accessToken,
+    };
+
+    const response = await PostService.cretePost(postData);
+    return res.json(response);
 }
 
 export async function findById(req: Request, res: Response): Promise<Response> {
@@ -90,7 +111,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sort(req: Request, res: Response): Promise<Response> {
-    const sortingParametr = Number(req.body.parametr);
+    const sortingParametr = req.body.parametr;
     const posts = await PostService.sortByDate(sortingParametr);
     return res.status(200).json(posts);
 }
