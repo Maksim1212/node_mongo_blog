@@ -8,7 +8,10 @@
         "test": "npx mocha ./__test__ --exit ",
         "start": "sleep 10s && node ./build/server/index.js",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-        "migrate-mongo": ""
+        "migrate:create": "sh -c 'ts-node node_modules/.bin/migrate-mongo create $0 -f migrate-mongo-config.ts' ",
+        "migrate:status": "ts-node node_modules/.bin/migrate-mongo status -f migrate-mongo-config.ts",
+        "migrate:undo-last": "ts-node node_modules/.bin/migrate-mongo down -f migrate-mongo-config.ts && npm run migrate:status",
+        "migrate": "ts-node node_modules/.bin/migrate-mongo up -f migrate-mongo-config.ts"
     },
     "repository": {
         "type": "git",

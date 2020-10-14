@@ -2,7 +2,7 @@ import * as faker from 'faker';
 
 const userSeed = [
     {
-        id: faker.random.number(),
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
@@ -10,7 +10,7 @@ const userSeed = [
         is_admin: faker.random.boolean,
     },
     {
-        id: faker.random.number(),
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
@@ -18,7 +18,7 @@ const userSeed = [
         is_admin: faker.random.boolean,
     },
     {
-        id: faker.random.number(),
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
@@ -26,7 +26,7 @@ const userSeed = [
         is_admin: faker.random.boolean,
     },
     {
-        id: faker.random.number(),
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
@@ -34,7 +34,7 @@ const userSeed = [
         is_admin: faker.random.boolean,
     },
     {
-        id: faker.random.number(),
+        id: faker.random.uuid(),
         name: faker.name.firstName(),
         email: faker.internet.email(),
         password: faker.internet.password(),
