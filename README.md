@@ -24,10 +24,6 @@ npm run start
 ```
 - If you need to fill the database, run the npm run migration:run command in the backend directory:
 ```
-npm run migration:run
-```
-- If you need clear the database seed data, run command :
-```
-npm run migration:revert
+npm run migrate
 ```
 After starting server go to http://localhost:3000/api-docs if you want to see swagger doc
