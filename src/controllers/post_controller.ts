@@ -13,11 +13,6 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 
 export async function create(req: Request, res: Response): Promise<Response> {
     const user = await UserService.findByUserId(String(req.body.user_id));
-    if (!user) {
-        return res.json({
-            message: 'this user not found',
-        });
-    }
 
     const userMain = {
         ...getUserMainFields(user),
