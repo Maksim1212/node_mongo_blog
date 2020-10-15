@@ -7,7 +7,7 @@ export const serviceConfig: ServiceConfigInterface = {
     },
 };
 
-export const MONGODB_URI = 'mongodb://localhost:27017/';
+export const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/';
 export const MONGODB_DB_MAIN = 'blog_db';
 export const MONGO_URI = `${MONGODB_URI}${MONGODB_DB_MAIN}`;
 

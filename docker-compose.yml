@@ -1,18 +1,31 @@
-version: '3'
+version: "3"
+
 services:
-  web:
+  backend:
+    container_name: "blog-engine-backend"
     build: .
-    depends_on:
-      - 'mysqlDb'
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
     ports:
       - "3000:3000"
-  mysqlDb:
-    image: mysql:8
-    volumes:
-      - ./mysql:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      - 'MYSQL_ROOT_PASSWORD=1472580369'
-      - 'MYSQL_DATABASE=blog'
-      - 'MYSQL_USER=blogAdmin'
-      - 'MYSQL_PASSWORD=blogadmin'
+    env_file: ".env"
+    depends_on:
+      - mongoDb
+
+  mongoDb:
+    container_name: "blog-engine-mongoDb"
+    image: "mongo"
+    ports:
+    - "27019:27019"
+
+#  postgres:
+#    container_name: "blog-engine-postgres"
+#    image: "postgres:12"
+#    ports:
+#      - "3300:3300"
+#    env_file: .env
+
+volumes:
+  data_backend_libs:
+    driver: local
