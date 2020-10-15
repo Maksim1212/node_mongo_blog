@@ -118,6 +118,7 @@ export async function sort(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sortByLikes(req: Request, res: Response): Promise<Response> {
-    const posts = await PostService.sortByLikes();
+    const sortingParametr = +req.body.parametr;
+    const posts = await PostService.sortByLikes(sortingParametr);
     return res.status(200).json(posts);
 }

@@ -2,7 +2,7 @@ import { body, query } from 'express-validator';
 import validateData from '../middleware/is_valid';
 
 const sortPostValidation = [body('parametr').isString().isLength({ min: 1, max: 4 }), validateData];
-const sortByLikesValidation = [body('parametr').isString().isLength({ min: 3, max: 4 }), validateData];
+const sortByLikesValidation = [body('parametr').isString().isLength({ min: 1, max: 4 }), validateData];
 const createPostValidation = [
     body('author_id').isString().isLength({ min: 24, max: 24 }),
     body('title').isString().isLength({ min: 1, max: 100 }).trim(),

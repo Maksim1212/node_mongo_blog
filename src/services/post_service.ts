@@ -38,8 +38,14 @@ function sortByDate(sortingParametr: number): Aggregate<string[]> {
     ]);
 }
 
-function sortByLikes() {
-    return PostModel.aggregate([{ $unwind: '$likes' }, { $sortByCount: '$likes' }]);
+function sortByLikes(sortingParametr: number): Aggregate<string[]> {
+    return PostModel.aggregate([
+        {
+            $sort: {
+                likes: sortingParametr,
+            },
+        },
+    ]);
 }
 
 export { findAll, cretePost, findByPostId, findByUserId, updatePostById, deletePost, sortByDate, sortByLikes };
