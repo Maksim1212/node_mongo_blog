@@ -4,7 +4,7 @@ const postSeed = [
     {
         id: faker.random.uuid(),
         title: faker.name.title(),
-        author_id: faker.random.uuid(),
+        user_id: faker.random.uuid(),
         author_name: faker.name.firstName(),
         body: faker.lorem.text(),
         likes: [faker.random.uuid(), faker.random.uuid(), faker.random.uuid()],
@@ -12,7 +12,7 @@ const postSeed = [
     {
         id: faker.random.uuid(),
         title: faker.name.title(),
-        author_id: faker.random.uuid(),
+        user_id: faker.random.uuid(),
         author_name: faker.name.firstName(),
         body: faker.lorem.text(),
         likes: [faker.random.uuid()],
@@ -20,7 +20,7 @@ const postSeed = [
     {
         id: faker.random.uuid(),
         title: faker.name.title(),
-        author_id: faker.random.uuid(),
+        user_id: faker.random.uuid(),
         author_name: faker.name.firstName(),
         body: faker.lorem.text(),
         likes: [faker.random.uuid(), faker.random.uuid()],
@@ -28,7 +28,7 @@ const postSeed = [
     {
         id: faker.random.uuid(),
         title: faker.name.title(),
-        author_id: faker.random.uuid(),
+        user_id: faker.random.uuid(),
         author_name: faker.name.firstName(),
         body: faker.lorem.text(),
         likes: [
@@ -44,7 +44,7 @@ const postSeed = [
     {
         id: faker.random.uuid(),
         title: faker.name.title(),
-        author_id: faker.random.uuid(),
+        user_id: faker.random.uuid(),
         author_name: faker.name.firstName(),
         body: faker.lorem.text(),
         likes: [],

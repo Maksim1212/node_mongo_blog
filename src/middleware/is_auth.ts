@@ -6,16 +6,22 @@ import { serviceConfig } from '../config/config';
 import * as UserService from '../services/user_service';
 
 export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {
+    const requsetUser = req.body.user_id;
     let tokens: TokensInterface;
     let verify;
     try {
         const token = req.body.accessToken;
         verify = jwt.verify(token, serviceConfig.jwt.accessSecret);
+        const userId = verify.user;
+        if (requsetUser !== userId) {
+            return res.status(403).json({ message: 'wrong token' });
+        }
     } catch (error) {
         if (error.message === 'jwt expired') {
-            const decoded = [];
-            decoded.push(...Object.values(jwt.decode(req.body.accessToken)));
-            const userId: string = decoded[0];
+            const userId = verify.user;
+            if (requsetUser !== userId) {
+                return res.status(403).json({ message: 'wrong token' });
+            }
             tokens = await getJWTTokens(userId);
             const user = await UserService.findByUserId(userId);
             const { accessToken } = tokens;

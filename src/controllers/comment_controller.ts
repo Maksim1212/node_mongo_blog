@@ -45,7 +45,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 export async function deleteById(req: Request, res: Response): Promise<Response> {
     const user = await isAdmin(req.body.user_id);
     const comment = await CommentService.findOne(req.body.id);
-    if (user || comment.author_id === req.body.user_id) {
+    if (user || comment.user_id === req.body.user_id) {
         await CommentService.deleteById(req.body.id);
         return res.status(200).json({
             message: 'comment deleted successfully',

@@ -12,7 +12,7 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.findByUserId(String(req.body.author_id));
+    const user = await UserService.findByUserId(String(req.body.user_id));
     if (!user) {
         return res.json({
             message: 'this user not found',
@@ -26,7 +26,7 @@ export async function create(req: Request, res: Response): Promise<Response> {
     const postData = {
         title: req.body.title,
         body: req.body.body,
-        author_id: req.body.author_id,
+        user_id: req.body.user_id,
         author_name: userMain.name,
         accessToken: req.body.accessToken,
     };
@@ -47,7 +47,7 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
-    const id = req.body.author_id;
+    const id = req.body.user_id;
     const post = await PostService.findByPostId(req.body.id);
 
     if (!post) {
@@ -56,7 +56,7 @@ export async function updateById(req: Request, res: Response): Promise<Response>
         });
     }
 
-    if ((await isAdmin(id)) || post.author_id === req.body.author_id) {
+    if ((await isAdmin(id)) || post.user_id === req.body.user_id) {
         // eslint-disable-next-line no-underscore-dangle
         await PostService.updatePostById(req.body._id, req.body);
         return res.status(200).json({
@@ -78,7 +78,7 @@ export async function deleteById(req: Request, res: Response): Promise<Response>
         });
     }
 
-    if ((await isAdmin(id)) || post.author_id === req.body.user_id) {
+    if ((await isAdmin(id)) || post.user_id === req.body.user_id) {
         await PostService.deletePost(req.body.id);
         return res.status(200).json({
             message: 'post deleted successfully',

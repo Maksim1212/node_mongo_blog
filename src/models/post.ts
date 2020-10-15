@@ -4,7 +4,7 @@ import connections from '../config/connection';
 
 const PostSchema = new Schema(
     {
-        author_id: {
+        user_id: {
             type: String,
             required: true,
         },

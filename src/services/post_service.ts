@@ -17,7 +17,7 @@ function findByPostId(_id: string): Promise<any> {
 }
 
 function findByUserId(_id: string): Promise<import('mongoose').Document[]> {
-    return PostModel.find({ author_id: _id }).exec();
+    return PostModel.find({ user_id: _id }).exec();
 }
 
 function updatePostById(_id: string, body: Likes): Promise<string> {
