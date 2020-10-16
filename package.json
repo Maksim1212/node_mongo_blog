@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc --build",
-        "test": "npx mocha ./__test__ --exit ",
+        "test": "editorconfig-checker",
         "start": "nodemon start ts",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "migrate:create": "sh -c 'ts-node node_modules/.bin/migrate-mongo create $0 -f migrate-mongo-config.ts' ",
@@ -63,6 +63,7 @@
         "@typescript-eslint/eslint-plugin": "^4.3.0",
         "@typescript-eslint/parser": "^4.3.0",
         "commitizen": "^4.2.1",
+        "editorconfig-checker": "^3.2.0",
         "eslint": "^7.10.0",
         "eslint-config-airbnb-typescript": "^9.0.0",
         "eslint-config-prettier": "^6.12.0",
