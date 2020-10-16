@@ -26,3 +26,4 @@ jobs:
       # - run: npm install
       # Deploy
       - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress . ${{ secrets.instance }}:~
+      - run: "ssh ${{ secrets.instance }}"
