@@ -14,7 +14,7 @@ services:
       - mongoDb
 
   mongoDb:
-    container_name: "blog-engine-mongoDb"
+    container_name: "mongoDb"
     image: "mongo"
     ports:
     - "27019:27019"
