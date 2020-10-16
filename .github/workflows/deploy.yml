@@ -24,4 +24,4 @@ jobs:
       # Build
       - run: npm ci
       # Deploy
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . max.bandapixels.foxyloxy.me:~
+      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.instance }}:~
