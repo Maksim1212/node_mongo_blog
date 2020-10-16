@@ -89,10 +89,12 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
     const postData = await PostService.findByPostId(req.body.post_id);
     let like: string;
     const likes = [];
+
     if (postData.likes) {
         like = postData.likes.find((id) => id === `${req.body.user_id}`);
         likes.push(...postData.likes);
     }
+
     if (!like) {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
