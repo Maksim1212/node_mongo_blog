@@ -17,7 +17,7 @@ services:
     container_name: "mongoDb"
     image: "mongo"
     ports:
-    - "27019:27019"
+    - "27017:27017"
 
 volumes:
   data_backend_libs:
