@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '12.x'
       # Setup key
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
@@ -23,5 +23,6 @@ jobs:
       - run: chmod 600 "$HOME/.ssh/key"
       # Build
       - run: npm ci
+      # - run: npm install
       # Deploy
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.instance }}:~
+      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress . ${{ secrets.instance }}:~
